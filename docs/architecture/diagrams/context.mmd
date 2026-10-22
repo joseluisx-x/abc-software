@@ -1,0 +1,8 @@
+flowchart LR
+  User[Personal de ventas y contabilidad]
+  App[ABC Software: facturación e inventario]
+  Tax[SUNAT / OSE]
+  Legacy[Fuente de datos operativos legados]
+  User --> App
+  App <--> Tax
+  Legacy --> App

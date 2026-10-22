@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abc-software.example/docs/contracts/SCHEMAS/invoice.schema.json",
+  "title": "Comprobante electrónico",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "emisorRuc", "tipoCpe", "serie", "correlativo", "fechaEmision", "moneda", "cliente", "lineas", "estado", "totales"],
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "emisorRuc": { "type": "string", "pattern": "^[0-9]{11}$" },
+    "tipoCpe": { "type": "string", "enum": ["01", "03", "07", "08"] },
+    "serie": { "type": "string", "minLength": 1, "maxLength": 4 },
+    "correlativo": { "type": "string", "minLength": 1, "maxLength": 20 },
+    "fechaEmision": { "type": "string", "format": "date" },
+    "moneda": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "cliente": { "$ref": "customer.schema.json" },
+    "lineas": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "invoice-line.schema.json" }
+    },
+    "estado": {
+      "type": "string",
+      "enum": ["DRAFT", "VALIDATED", "SIGNED", "SUBMITTED", "SUBMITTED_UNKNOWN", "ACCEPTED", "OBSERVED", "REJECTED", "ANNULLED"]
+    },
+    "totales": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["valorVenta", "impuestos", "importePagar"],
+      "properties": {
+        "valorVenta": { "type": "number" },
+        "impuestos": { "type": "number" },
+        "importePagar": { "type": "number" },
+        "icbper": { "type": "number", "minimum": 0 }
+      }
+    },
+    "hashXml": { "type": "string", "minLength": 1 },
+    "documentoReferencia": { "$ref": "sale.schema.json#/properties/documentoReferencia" }
+  }
+}

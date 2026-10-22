@@ -1,0 +1,57 @@
+classDiagram
+  class Comprobante {
+    +UUID id
+    +TipoCPE tipo
+    +String serie
+    +String correlativo
+    +Date fechaEmision
+    +Moneda moneda
+    +EstadoCPE estado
+  }
+  class DetalleComprobante {
+    +int numeroLinea
+    +decimal cantidad
+    +decimal precioUnitario
+    +decimal valorVenta
+  }
+  class Cliente {
+    +UUID id
+    +String tipoDocumento
+    +String numeroDocumento
+    +String nombreLegal
+  }
+  class Producto {
+    +UUID id
+    +String sku
+    +String descripcion
+    +String unidadMedida
+  }
+  class Tributo {
+    +String codigo
+    +decimal base
+    +decimal tasa
+    +decimal importe
+  }
+  class MovimientoInventario {
+    +UUID id
+    +String direccion
+    +decimal cantidad
+    +DateTime ocurridoEn
+  }
+  class EnvioCPE {
+    +UUID id
+    +String canal
+    +String estado
+    +String ticket
+  }
+  class CDR {
+    +String codigoRespuesta
+    +String descripcion
+  }
+  Cliente "1" <-- "0..*" Comprobante : receptor
+  Comprobante "1" *-- "1..*" DetalleComprobante : lineas
+  DetalleComprobante "*" --> "0..1" Producto : referencia
+  DetalleComprobante "1" *-- "0..*" Tributo : tributos
+  Producto "1" *-- "0..*" MovimientoInventario : movimientos
+  Comprobante "1" *-- "0..*" EnvioCPE : intentos
+  EnvioCPE "1" o-- "0..1" CDR : respuesta

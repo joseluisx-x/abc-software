@@ -1,0 +1,23 @@
+flowchart LR
+  subgraph Api[Entrada: API / MVC Controllers]
+    Controllers[Controllers delgados]
+  end
+  subgraph Application[Aplicación]
+    UseCases[Emitir, validar RUC, migrar, calcular]
+    Ports[Puertos de entrada/salida]
+  end
+  subgraph Domain[Dominio]
+    Model[Comprobante, detalle, cliente, producto]
+    Rules[Invariantes y políticas tributarias]
+  end
+  subgraph Infrastructure[Adaptadores]
+    Repo[Persistencia]
+    Xml[UBL y XSD]
+    Sign[Firma]
+    Gateway[SUNAT / OSE]
+  end
+  Controllers --> UseCases --> Model
+  UseCases --> Ports
+  Model --> Rules
+  Ports --> Repo
+  Ports --> Xml --> Sign --> Gateway

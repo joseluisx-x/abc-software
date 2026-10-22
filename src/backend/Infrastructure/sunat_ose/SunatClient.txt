@@ -1,0 +1,1 @@
+Placeholder for SUNAT/OSE adapter: SunatClient.

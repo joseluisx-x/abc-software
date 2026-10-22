@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abc-software.example/docs/contracts/SCHEMAS/inventory-movement.schema.json",
+  "title": "Movimiento de inventario",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["productoId", "direccion", "cantidad", "unidadMedida", "ocurridoEn", "origen"],
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "productoId": { "type": "string", "format": "uuid" },
+    "direccion": { "type": "string", "enum": ["IN", "OUT"] },
+    "cantidad": { "type": "number", "exclusiveMinimum": 0 },
+    "unidadMedida": { "type": "string", "minLength": 1, "maxLength": 6 },
+    "ocurridoEn": { "type": "string", "format": "date-time" },
+    "origen": { "type": "string", "enum": ["PURCHASE", "SALE", "ADJUSTMENT", "LEGACY_IMPORT", "RETURN", "OTHER"] },
+    "referenciaOrigen": { "type": "string", "maxLength": 120 },
+    "observacion": { "type": "string", "maxLength": 500 }
+  }
+}

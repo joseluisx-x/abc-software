@@ -1,0 +1,17 @@
+flowchart TB
+  subgraph Clients[Clientes nativos]
+    Desktop[Windows desktop]
+    Mobile[Android mobile]
+  end
+  API[Backend API]
+  Worker[Procesador de colas y consultas]
+  DB[(Persistencia elegida: POR VERIFICAR)]
+  Archive[(Archivo XML / CDR: POR VERIFICAR)]
+  Tax[Adaptador SUNAT u OSE]
+  Desktop --> API
+  Mobile --> API
+  API --> DB
+  API --> Archive
+  API --> Worker
+  Worker --> Tax
+  Tax --> Worker
