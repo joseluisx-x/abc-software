@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abc-software.example/specs/schemas/cliente.schema.json",
+  "title": "Cliente",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["tipoDocumento", "numeroDocumento", "nombreLegal"],
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "tipoDocumento": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4,
+      "description": "Código de tipo de identificación; cotejar con Catálogo SUNAT 06 vigente."
+    },
+    "numeroDocumento": { "type": "string", "minLength": 1, "maxLength": 32 },
+    "nombreLegal": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "direccion": { "type": "string", "maxLength": 300 },
+    "email": { "type": "string", "format": "email", "maxLength": 254 },
+    "telefono": { "type": "string", "maxLength": 32 }
+  }
+}
